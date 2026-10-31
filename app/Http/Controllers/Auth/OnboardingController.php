@@ -18,7 +18,7 @@ class OnboardingController extends Controller
 {
     public function show(Request $request, Invitation $invitation, InvitationTokenService $tokenService): View
     {
-        if (! $tokenService->verify($request, $invitation)) {
+        if (!$tokenService->verify($request, $invitation)) {
             return view('auth.invitation-invalid');
         }
 
