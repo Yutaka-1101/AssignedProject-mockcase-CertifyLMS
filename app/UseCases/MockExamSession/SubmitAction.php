@@ -23,7 +23,8 @@ final class SubmitAction
     public function __construct(
         private readonly GradeAction $grade,
         private readonly TermJudgementService $termJudgement,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws MockExamSessionNotInProgressException

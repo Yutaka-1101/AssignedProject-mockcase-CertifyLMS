@@ -134,7 +134,7 @@ class MockExamSessionController extends Controller
     {
         return MockExamQuestion::query()
             ->whereIn('id', $session->generated_question_ids ?? [])
-            ->with(['category', 'options' => fn ($q) => $q->orderBy('order')])
+            ->with(['category', 'options' => fn($q) => $q->orderBy('order')])
             ->orderBy('order')
             ->get();
     }
@@ -148,7 +148,7 @@ class MockExamSessionController extends Controller
             ->whereIn('id', $session->generated_question_ids ?? [])
             ->with([
                 'category',
-                'options' => fn ($q) => $q->orderBy('order'),
+                'options' => fn($q) => $q->orderBy('order'),
             ])
             ->orderBy('order')
             ->get();
