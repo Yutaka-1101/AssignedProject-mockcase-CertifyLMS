@@ -33,7 +33,8 @@ final class OnboardAction
     public function __construct(
         private readonly UserStatusChangeService $statusChanger,
         private readonly GrantInitialQuotaAction $grantInitial,
-    ) {}
+    ) {
+    }
 
     /**
      * @param array{name: string, bio?: ?string, password: string, meeting_url?: string} $validated
