@@ -102,6 +102,11 @@ final class OnboardAction
                 );
             }
 
+            $invitation->forceFill([
+                'status' => InvitationStatus::Accepted,
+                'accepted_at' => now(),
+            ])->save();
+
             return $user->refresh();
         });
 
