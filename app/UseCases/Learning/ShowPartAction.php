@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\UseCases\Learning;
 
 use App\Enums\ContentStatus;
+use App\Enums\CertificationStatus;
 use App\Models\Part;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use function PHPUnit\Framework\throwException;
 
 /**
  * /learning/parts/{part} (3 階層目、Chapter 一覧) のデータを準備する Action。
@@ -26,6 +28,10 @@ final class ShowPartAction
     {
         $part->loadMissing('certification');
 
+        if ($part->certification->status !== CertificationStatus::Published) {
+            throw new NotFoundHttpException;
+        }
+
         if ($part->status !== ContentStatus::Published) {
             throw new NotFoundHttpException;
         }
@@ -34,7 +40,7 @@ final class ShowPartAction
             ->where('status', ContentStatus::Published->value)
             ->ordered()
             ->withCount([
-                'sections as sections_total_count' => fn ($q) => $q
+                'sections as sections_total_count' => fn($q) => $q
                     ->where('status', ContentStatus::Published->value),
             ])
             ->get();
